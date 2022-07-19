@@ -14,18 +14,22 @@ import base64
 import datetime
 import io
 
+######################################################################################################################
+                                            #USER INPUT
+                        
+epdate_float = "PUT A LIST OF DECIMAL DATES HERE" # e.g. [2014.717808219178, 2014.9013698630138, 2015.0849315068492] with the dates corresponding to the observations.
+source_Dec = "PUT SOURCE DECLINATION HERE" #Put the decimal source declination here (in degrees). E.g. -35.78375
+
+######################################################################################################################
+
+
+
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 plotted = False
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 df = []
 cols = ['ID','L value','Epochs','RA','RAerr','Dec','Decerr','mu_alpha','dmu_alpha','mu_delta','dmu_delta','VLSR','EpID']
-all_dates = []
-#Epdate_float: G9.62 [2011+330/365.25,2012+256/365.25,2013+263/365.25] Source_dec: -20-31/60.-35/3600
-#Epdate_float: NGC6334I  [2014.717808219178, 2014.9013698630138, 2015.0849315068492, 2015.2849315068493, 2015.8821917808218, 2016.109589041096, 2016.194520547945]
-epdate_float = [2008 + 327./365., 2009 + 32./365., 2009 + 138./365, 2009 + 138./365., 2009 + 240./365.,
-                2009 + 258./365., 2009 + 270./365., 2009 + 297./365., 2009 + 347./365., 2010 + 41./365., 2010 + 94./365., 2010 + 233./365. ]
-#NGC6334I source_Dec= -35.78375
-source_Dec = 17 + 59/60 + 22.95890/3600
+
 def straight_line(x,a,b):
     return a*x+b
 def calc_mu(x,dx,t):
@@ -119,7 +123,7 @@ html.Div([html.H1(children='IMProV', style={'textAlign': 'center'}),
                     r'$L_{ij} = a|log_{10}A_i-log_{10}A_j| + b|\mu_i-\mu_j| + '+
                     r'c |FWHM_i-FWHM_j|$' + '\n \n' +
                     r'with $L = \frac{1}{(a+b+c)\Sigma_n^N (n-1)}\Sigma_i^N\Sigma_{j>i}^N L_{ij}$,' + '\n' +
-                    r'$a = 1, b = 1, c = 1$',mathjax=True,
+                    r'$a = 1, b = 2, c = 3$',mathjax=True,
                                        style={"white-space": "pre","overflow-x": "scroll"})],className='rows'),
                 html.Div([
                     dcc.Markdown('L = ',style={"white-space": "pre","overflow-x": "scroll"}, mathjax=True),

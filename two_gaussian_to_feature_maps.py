@@ -4,6 +4,23 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import trange
+
+
+#################################################################################################################
+
+									# USER INPUT
+
+posmaps = glob('PUT DIRECTORY OF SPOTMAPS HERE')                          #Folder which contains the spotmaps
+posmaps.sort()
+feature_data = glob('PUT DIRECTORY OF GAUSSIAN FITS HERE')	   #Folder which contains the saved Gaussian 
+feature_data.sort()								   #fitting parameters from the first script.
+
+#################################################################################################################
+
+
+
+
+
 def isolate(x,y,xlim,ylim):
     '''Gives indices for elements in x,y range.
     Parameters :
@@ -39,10 +56,10 @@ def monte_carlo_weighted_average(x,dx,weight,dweight,N):
 	return np.mean(weighted_average_arr),np.std(weighted_average_arr)*3
 # data_dir = sys.argv[1]
 
-posmaps = glob('./*.csv')
-posmaps.sort()
-feature_data = glob('./Features/*features.csv')
-feature_data.sort()
+
+
+
+
 
 for i,(posmap,feature) in enumerate(zip(posmaps,feature_data)):
 	df_feature = pd.read_csv(feature,sep=',')
@@ -77,10 +94,10 @@ for i,(posmap,feature) in enumerate(zip(posmaps,feature_data)):
 		feature_VLSR.append(df_feature['Center'].values[j])
 	plt.scatter(feature_RA,feature_DEC,c = feature_VLSR,marker="$%d$"%(i+1),cmap='jet')
 	df_processed = pd.DataFrame(columns=['RA','DEC','DRA','DDEC','VLSR','Peak','Peak err','Center','Center err','FWHM','FWHM err'])
-	df_processed['RA'] = np.array(feature_RA)*1e-3
-	df_processed['DEC'] = np.array(feature_DEC)*1e-3
-	df_processed['DRA']= np.array(feature_RAERR)*1e-3
-	df_processed['DDEC'] = np.array(feature_DECERR)*1e-3
+	df_processed['RA'] = np.array(feature_RA)
+	df_processed['DEC'] = np.array(feature_DEC)
+	df_processed['DRA']= np.array(feature_RAERR)
+	df_processed['DDEC'] = np.array(feature_DECERR)
 	df_processed['VLSR'] = feature_VLSR
 	for col in ['Peak','Peak err','Center','Center err','FWHM','FWHM err']:
 		df_processed[col] = df_feature[col]
