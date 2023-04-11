@@ -1,0 +1,6 @@
+#Source Name e.g.
+Source_Name = S255
+#List of decimal dates for the epochs. e.g.
+epdate_float = [2008.7, 2009.02, 2009.4] 
+#Source declination e.g.
+source_Dec = 17.885
